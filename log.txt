@@ -1,0 +1,11 @@
+commit ee972e163fe247f9c264836029b771a9ae82c314
+Author: Jacob <33310669+SuperiorJacob@users.noreply.github.com>
+Date:   Wed Jul 29 09:41:27 2020 +1000
+
+    Create README.md
+
+commit 44048e5e28b521adc847f0ea70d92e2f1b8ec974
+Author: Jacob Cooper <s200503@students.aie.edu.au>
+Date:   Thu Jul 2 13:35:51 2020 +1000
+
+    adding double linked list

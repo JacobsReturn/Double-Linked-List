@@ -43,15 +43,18 @@ int main()
     list->PushBack(19);
     list->PushFront(19);
 
-    list->InsertAtIndex(4, 69);
+    //list->InsertAtIndex(4, 69);
 
     /*list->ForEach([](int& value) {
         std::cout << value << ", ";
      });*/
 
     list->PrintTree();
+    list->Sort();
 
     list->RemoveAtIndex(4);
+
+    list->PrintTree();
 
     list->Sort();
     list->PrintTree();

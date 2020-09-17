@@ -93,26 +93,11 @@ void LinkedList::Swap(Node* val, Node* val2)
 
 void LinkedList::Sort()
 {
-	for (int i = 0; i < count - 1; i++)
-	{
-		Node* current = m_first;
-		Node* next = nullptr;
-
-		if (current->next != nullptr) next = current->next;
-
-		for (int j = 0; j < count - i; j++)
-		{
-			if (next != nullptr)
-			{
-				if (current != nullptr && (current->value > next->value))
-					Swap(current, next);
-
-				current = next;
-				next = nullptr;
-				if (current->next != nullptr) next = current->next;
-			}
-		}
-	}
+	int i, j;
+	for (i = 0; i < count; i++)
+		for (j = 0; j < count - i; j++)
+			if (Get(j)->value > Get(j + 1)->value)
+				Swap(Get(j), Get(j + 1));
 }
 
 void LinkedList::InsertAtIndex(int key, int value)
@@ -128,7 +113,7 @@ void LinkedList::InsertAtIndex(int key, int value)
 		newNode->next = place;
 		newNode->prev = place->prev;
 
-		place->prev->next = newNode;
+		if (place->prev != nullptr) place->prev->next = newNode;
 		place->prev = newNode;
 
 		count++;
@@ -139,18 +124,18 @@ LinkedList::Node* LinkedList::Get(int index)
 {
 	if (count > 0)
 	{
-		int index = 1;
+		int ind = 0;
 		Node* current = m_first;
 
 		while (current != nullptr)
 		{
-			if (index == index)
+			if (ind == index)
 			{
 				return current;
 			}
 
 			current = current->next;
-			index++;
+			ind++;
 		}
 	}
 
@@ -168,9 +153,12 @@ int LinkedList::GetFront()
 void LinkedList::PrintTree()
 {
 	std::cout << std::endl;
-	for (int i = 1; i <= count; i++)
+	for (int i = 0; i <= count; i++)
 	{
-		std::cout << i << ": " << Get(i)->value << std::endl;
+		Node* node = Get(i);
+
+		if (node == nullptr) std::cout << i << ": NULL" << std::endl;
+		else std::cout << i << ": " << node->value << std::endl;
 	}
 }
 
@@ -195,8 +183,16 @@ void LinkedList::RemoveAtIndex(int key)
 	Node* before = place->prev;
 	Node* after = place->next;
 
-	before->next = after;
-	before->prev = before;
+	if (before != nullptr)
+	{
+		before->next = after;
+		before->prev = before;
+	}
+
+	if (after != nullptr)
+	{
+		after->prev = before;
+	}
 
 	count--;
 
